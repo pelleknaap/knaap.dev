@@ -6,8 +6,14 @@ import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
+import mdx from "@astrojs/mdx";
+
+// https://astro.build/config
+import svelte from "@astrojs/svelte";
+
+// https://astro.build/config
 export default defineConfig({
-  site: "https://astro-paper.pages.dev/",
+  site: "https://knaap.dev",
   integrations: [
     tailwind({
       config: {
@@ -16,6 +22,8 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
+    mdx(),
+    svelte(),
   ],
   markdown: {
     remarkPlugins: [

@@ -1,0 +1,82 @@
+---
+author: Pelle van der Knaap
+pubDatetime: 2023-01-04T15:22:00Z
+title: Optimizing performance by subsetting fonts
+postSlug: font-subsetting
+featured: true
+draft: false
+tags:
+  - fonts
+  - web performance
+ogImage: "Font Subsetting"
+description: Font subsetting is an incredible technique to reduce the file size of fonts and speed up page load times.
+---
+
+import FontWidget from "@components/blog/FontWidget.svelte";
+
+In this article, we will explore a few techniques that Google Fonts uses to optimize font performance on the web.
+These techniques can be useful when you need to manually optimize your fonts.
+Additionally, it will give you a ton of valuable insight into the world of fonts on the web!
+
+## Font Subsetting
+
+Font subsetting is a way to reduce the file size of fonts and speed up page load time by only including the characters that are actually used on the page, rather than the entire font.
+Most fonts have a large number of rarely used characters, such as Ë, ó, and ẞ, which can take up valuable kilobytes.
+
+However, it's important to be careful with font subsetting, as it can impact the appearance of text if not done correctly.
+If characters are removed from the font and are still used on the page, the browser will substitute them with a fallback font. This can break the design of the page.
+This is especially common on websites with built-in internationalization.
+
+### Manually subsetting local fonts
+
+If you aren't using an external service like Google Fonts to subset your fonts, you can do it manually.
+This requires some effort, but it can drastically reduce the file size of your fonts.
+
+There are a few tools that can help you with this:
+If you want to use a website to subset your fonts, I can recommend [Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator).
+It offers a ton of options to subset your fonts, and it's free to use.
+If you prefer to use the terminal, you can use a CLI like [Subfont](https://github.com/Munter/subfont).
+
+#### Subset sizes
+
+You can use the interactive widget below to get more insight about the file sizes of different font subsets.
+Feel free to play around with it! You can use **_Poppins_** as another font for example.
+All fonts are fetched from Google Fonts. You can use any font that's available on Google Fonts.
+
+<FontWidget client:visible />
+
+### The unicode-range property
+
+If you already have a font with various subsets. You can use the `unicode-range` property.
+It will automatically load the correct subsets based on the characters specified in the unicode-range property.
+
+Google Fonts automatically provides subsets. If you're using Google Fonts, you can use the `unicode-range` property without manually subsetting the font.
+
+With the unicode-range property, you can specify a range of unicodes (characters) that are used on the website.
+You can find all unicodes and the specific unicode ranges on [Unicode Table](https://unicode-table.com/en/#control-character).
+For Latin, you want to use `U+0020-007F`, which includes all basic latin characters.
+
+Here's an example of how to use the unicode-range property in a @font-face rule:
+
+```css
+@font-face {
+  font-family: "Roboto";
+  src: url(https://url.com) format("woff2");
+  unicode-range: `U + 0020-007F;
+}
+```
+
+See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range) for more information.
+
+#### Fun Fact
+
+You can use the `unicode-range` property to include multiple ranges of characters from different fonts.
+This allows you to mix fonts, and for example use a serif font for certain characters and a monofont for other characters.
+While you may not need this feature often, it can be fun to experiment with.
+
+## Further Reading
+
+If you want to learn more about subsetting fonts, I can recommend the following articles:
+
+- [Subsetting](https://fonts.google.com/knowledge/glossary/subsetting) on Google Fonts
+- [Creating Font Subsets](https://markoskon.com/creating-font-subsets/) by Markos Kon
