@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import Progress from "@components/Progress.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
@@ -22,7 +23,7 @@ const ogUrl = new URL(ogImage ? ogImage : `${title}.svg`, Astro.url.origin)
 
 <Layout title={title} author={author} description={description} ogImage={ogUrl}>
   <Header />
-  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+  <div class="mx-auto flex w-full max-w-4xl justify-start px-2">
     <button
       class="focus-outline mt-8 mb-2 flex hover:opacity-75"
       onclick="history.back()"
@@ -35,26 +36,41 @@ const ogUrl = new URL(ogImage ? ogImage : `${title}.svg`, Astro.url.origin)
     </button>
   </div>
   <main id="main-content">
-    <h1 class="post-title">{title}</h1>
-    <Datetime datetime={pubDatetime} size="lg" className="my-2" />
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
-      <Content />
-    </article>
-
-    <ul class="tags-container">
-      {tags.map(tag => <Tag name={tag} />)}
-    </ul>
+    <div class="wrapper">
+      <div class="col-span-11">
+        <h1 class="post-title">{title}</h1>
+        <Datetime datetime={pubDatetime} size="lg" className="my-2" />
+        <article id="article" role="article" class="prose mt-8">
+          <Content />
+        </article>
+      </div>
+      <div class="col-span-1 h-full">
+        <div class="sticky top-2 ml-auto mr-0 h-16 w-16">
+          <Progress />
+        </div>
+      </div>
+    </div>
   </main>
-  <Footer />
+
+  <ul class="tags-container">
+    {tags.map(tag => <Tag name={tag} />)}
+  </ul>
 </Layout>
+<Footer />
 
 <style>
   main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+    @apply mx-auto w-full max-w-4xl px-4 pb-12;
   }
+
+  .wrapper {
+    @apply grid grid-cols-12 gap-x-4;
+  }
+
   .post-title {
     @apply text-2xl font-semibold text-skin-accent;
   }
+
   .tags-container {
     @apply my-8;
   }

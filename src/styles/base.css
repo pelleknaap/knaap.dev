@@ -16,6 +16,7 @@
     --color-fill: 33, 39, 55;
     --color-text-base: 234, 237, 243;
     --color-accent: 179, 136, 235;
+    --color-accent-muted: 24, 32, 47;
     --color-card: 52, 63, 96;
     --color-card-muted: 138, 51, 2;
     --color-border: 179, 136, 235;
@@ -34,7 +35,7 @@
   }
   section,
   footer {
-    @apply mx-auto max-w-3xl px-4;
+    @apply mx-auto max-w-4xl px-4;
   }
   a {
     @apply outline-2 outline-offset-1 outline-skin-fill

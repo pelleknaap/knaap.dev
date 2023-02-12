@@ -33,6 +33,7 @@ module.exports = {
       skin: {
         fill: withOpacity("--color-fill"),
         accent: withOpacity("--color-accent"),
+        "accent-muted": withOpacity("--color-accent-muted"),
         inverted: withOpacity("--color-text-base"),
         card: withOpacity("--color-card"),
         "card-muted": withOpacity("--color-card-muted"),
