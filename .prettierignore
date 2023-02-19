@@ -1,6 +1,7 @@
 # Ignore everything
 /*
 /public/favicon
+*.png
 
 # Except these files & folders
 !/src
@@ -12,3 +13,4 @@
 !.prettierrc
 !.eslintrc.js
 !README.md
+

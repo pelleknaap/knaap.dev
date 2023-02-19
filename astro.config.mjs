@@ -24,12 +24,12 @@ export default defineConfig({
       },
     }),
     react(),
-    sitemap(),
     mdx(),
     svelte(),
     image({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
+    sitemap(),
   ],
   markdown: {
     remarkPlugins: [
