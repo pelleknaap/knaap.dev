@@ -5,7 +5,6 @@ export const SITE = {
   author: "Pelle van der Knaap",
   desc: "My personal blog and site containing information about development and other personal interests.",
   title: "Pelle v/d Knaap",
-  ogImage: "astropaper-og.jpg",
   lightAndDarkMode: false,
   postPerPage: 3,
 };
