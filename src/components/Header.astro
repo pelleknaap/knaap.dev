@@ -1,6 +1,6 @@
 ---
 import { LOGO_IMAGE, SITE } from "@config";
-import Hr from "./Hr.astro";
+import Progress from "./Progress.astro";
 import LinkButton from "./LinkButton.astro";
 
 import logoPNG from "/assets/logo.png";
@@ -13,7 +13,7 @@ export interface Props {
 const { activeNav } = Astro.props;
 ---
 
-<header>
+<header class="header">
   <a id="skip-to-content" href="#main-content">Skip to content</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
@@ -74,6 +74,11 @@ const { activeNav } = Astro.props;
               </svg>
             </LinkButton>
           </li>
+          <li>
+            <div class="h-12 w-12">
+              <Progress />
+            </div>
+          </li>
           {
             SITE.lightAndDarkMode && (
               <li>
@@ -106,11 +111,15 @@ const { activeNav } = Astro.props;
   }
 
   .nav-container {
-    @apply mx-auto flex max-w-4xl flex-col items-center justify-between sm:flex-row;
+    @apply mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row;
+  }
+
+  .header {
+    @apply sticky inset-x-0 top-0 backdrop-blur-sm;
   }
 
   .top-nav-wrap {
-    @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-8;
+    @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-4;
   }
 
   .logo {
@@ -126,7 +135,7 @@ const { activeNav } = Astro.props;
   }
 
   nav {
-    @apply flex w-full flex-col items-center bg-skin-fill sm:ml-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0;
+    @apply flex w-full flex-col items-center sm:ml-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0;
   }
 
   nav ul {
