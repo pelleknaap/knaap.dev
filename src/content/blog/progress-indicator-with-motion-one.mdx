@@ -15,6 +15,7 @@ description: Motion One is the new kid on the block when it comes to animation l
 
 import Image from "@components/Image.astro";
 import LandingImage from "@assets/motion-one-landing.png";
+import FileSizeComparison from "@assets/motion-one-file-size-compared.png";
 
 <Image
   src={LandingImage}
@@ -29,6 +30,15 @@ In case you haven't heard about Motion One yet, it is an amazing new animation l
 
 Motion One is completely based on native browser APIs, which means that it is incredibly fast and lightweight by default.
 It is also very easy to use, and it has a lot of features that you would expect from a modern animation library.
+
+Compared to similar libraries like Anime.js and GSAP, Motion One is incredibly small in bundle size.
+According to Bundlephobia, GSAP is almost five times as large as Motion One.
+
+<Image
+  src={FileSizeComparison}
+  alt="A screenshot from bundlephobia.com highlighting the large difference in bundle sizes"
+  full
+/>
 
 In fact, the scroll progress indicator on the right side of this blog was created with Motion One.
 An article showing you how to build this indicator will follow sometime soon ;).
@@ -68,7 +78,7 @@ Hopefully, Svelte can be added to that list soon, although it is already pretty 
 If you want to find out more about the features Motion One offers, and how it stacks up to other animation libraries, you can find a [Comparison Table](https://motion.dev/guides/feature-comparison#comparison-table) on the Motion One website.
 It compares Motion One to Anime.js and GSAP (Greensock).
 
-Additionally, if you're curious about the comparison between Motion One and Framer Motion, you should definitely give [this article](https://motion.dev/blog/should-you-use-framer-motion-or-motion-one) a read.
+Additionally, if you're curious about the comparison between Motion One and Framer Motion, you should definitely give [this article](https://motion.dev/blog/should-you-use-framer-motion-or-motion-one) by the Motion One creator a read.
 
 ## Where to start?
 
