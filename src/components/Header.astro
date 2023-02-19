@@ -3,11 +3,11 @@ import { LOGO_IMAGE, SITE } from "@config";
 import Progress from "./Progress.astro";
 import LinkButton from "./LinkButton.astro";
 
-import logoPNG from "/assets/logo.png";
-import logoSVG from "/assets/logo.svg";
+import logoPNG from "@images/logo.png";
+import logoSVG from "@images/logo.svg";
 
 export interface Props {
-  activeNav?: "posts" | "tags" | "about" | "search";
+  activeNav?: "posts" | "tags" | "about" | "search" | "post";
 }
 
 const { activeNav } = Astro.props;
@@ -74,11 +74,15 @@ const { activeNav } = Astro.props;
               </svg>
             </LinkButton>
           </li>
-          <li>
-            <div class="h-12 w-12">
-              <Progress />
-            </div>
-          </li>
+          {
+            activeNav === "post" && (
+              <li>
+                <div class="h-12 w-12">
+                  <Progress />
+                </div>
+              </li>
+            )
+          }
           {
             SITE.lightAndDarkMode && (
               <li>

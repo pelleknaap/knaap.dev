@@ -12,6 +12,9 @@ import mdx from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
+import image from "@astrojs/image";
+
+// https://astro.build/config
 export default defineConfig({
   site: "https://knaap.dev",
   integrations: [
@@ -24,6 +27,9 @@ export default defineConfig({
     sitemap(),
     mdx(),
     svelte(),
+    image({
+      serviceEntryPoint: "@astrojs/image/sharp",
+    }),
   ],
   markdown: {
     remarkPlugins: [

@@ -1,0 +1,13 @@
+---
+import { Picture } from "@astrojs/image/components";
+
+const { src, alt, height, width, full } = Astro.props;
+const calculatedWidth = full ? 763 : width;
+---
+
+<Picture
+  src={src}
+  alt={alt}
+  widths={[calculatedWidth]}
+  style={`height: ${src.height / (src.width / calculatedWidth)}px`}
+/>
