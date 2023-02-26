@@ -133,11 +133,11 @@ const { activeNav } = Astro.props;
   }
 
   .top-nav-wrap {
-    @apply relative flex w-full items-center justify-between p-4 sm:items-center sm:py-4;
+    @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-4;
   }
 
   .logo {
-    @apply basis-full py-1 text-xl font-semibold sm:text-2xl;
+    @apply absolute top-1/2 basis-full -translate-y-1/2 transform py-1 text-xl font-semibold sm:text-2xl;
   }
 
   .mobile-menu {
