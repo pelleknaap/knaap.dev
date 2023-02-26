@@ -7,6 +7,7 @@ export const SITE = {
   title: "Pelle v/d Knaap",
   lightAndDarkMode: false,
   postPerPage: 3,
+  ogImage: "",
 };
 
 export const LOGO_IMAGE = {
