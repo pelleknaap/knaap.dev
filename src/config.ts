@@ -6,7 +6,7 @@ export const SITE = {
   desc: "My personal blog and site containing information about development and other personal interests.",
   title: "Pelle v/d Knaap",
   lightAndDarkMode: false,
-  postPerPage: 3,
+  postPerPage: 18,
   ogImage: "",
 };
 
