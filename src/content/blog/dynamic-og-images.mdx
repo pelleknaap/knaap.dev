@@ -38,7 +38,7 @@ Yes, there are a few alternatives to Satori, but they all have their own drawbac
 Most of the alternatives like Puppeteer require running a headless browser, which is slow and resource intensive.
 That's why we will focus on Satori in this post.
 
-## Let's install it!
+## How to install Satori?
 Alright, install Satori with your favorite package manager.
 
 ```bash
@@ -49,7 +49,7 @@ npm install satori
 yarn add satori
 ```
 
-### Use it
+### How to use Satori?
 Now, let's use it to generate an OG image for this post.  
 First, we need to create a template for the OG image.
 
@@ -90,7 +90,10 @@ This code generates a string of SVG code.
 You can either export the SVG code to a file or convert it to another format like PNG with an external library. 
 
 [ReSVG-JS](https://github.com/yisibl/resvg-js) seems to be the most popular option for converting SVGs to PNGs.
-I've opted to use SVGs as OG Images for this blog, but if you want to make sure all sites support your OG Images, you can convert them to PNGs.
+This should be fairly easy to implement with their documentation.
+
+Unfortunately, I couldn't get it to work with Astro due to [this issue](https://github.com/yisibl/resvg-js/issues/175#issuecomment-1346452466).
+
 [Vercel's OG library](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation) that only works with Vercel's edge functions does this automatically.
 Play around with various file formats on the [Satori Playground](https://og-playground.vercel.app/).
 
@@ -100,7 +103,7 @@ I recommend creating an API route that generates the SVG code and then to return
 Most static site generator should allow you to export a range of static paths that you can map to blog posts and their data.
 This way, you can let the site generator handle the rest.
 
-### Astro
+### How to implement Satori with Astro?
 Create an API route in your Astro project by creating a file named `[og].svg.ts` in the `src/pages` directory.
 
 Fill it with the following code.
@@ -139,11 +142,11 @@ Next, you can simply set the dynamic OG image path in the layout of your post by
 <meta property="og:image:height" content="630" />
 ```
 
-### Webpack static site generators
+### How to implement Satori with webpack based static site generators like Nuxt 2?
 With Webpack based static site generators like Nuxt 2, you can hook into the Webpack build process to generate OG Images and to add them to the dist folder.
 This requires more effort, but it allows you to simply add all necessary OG Images to the build.
 
-### Use them anywhere
+### General advice for implementing Satori with other tech stacks
 You can also use serverless functions like Vercel's, Netlify's or AWS Lambda to generate the images on the fly.
 You can use the same code as the JSX template example above and embed the images anywhere.
 
