@@ -1,0 +1,156 @@
+---
+author: Pelle van der Knaap
+pubDatetime: 2023-02-05T20:22:00Z
+title: "Scaling images to every device in Astro"
+postSlug: scaling-images-to-every-device-astro
+featured: true
+draft: true
+tags:
+  - web performance
+  - astro
+description: "Serving the right image to every device is difficult. Luckily, Astro 3.3 offers a toolbox of tools to make it easier."
+---
+
+## Why should we care about serving the right image to every device?
+Images are a huge part of the web.
+They are used to spice up content, to make it more interesting and engaging.
+However, images are also one of the biggest performance bottlenecks on the web.
+You've probably seen a plethora of warnings in your Lighthouse reports about images.
+
+To be honest, images are difficult to get right.
+One of the reasons for this is that websites are viewed on a wide variety of devices.
+Images need to look good on big devices (like a 4K monitor), but also on small phones.
+
+If we could only serve one image to every device, we would have to make a tough compromise.
+We could make the image small enough to load fast on a phone, but it would look blurry on a big monitor and vice versa.
+
+In the past, we only had one option: serve the same image to every device.
+With the means of compressions and newer image formats (webp & avif), the impact could already be greatly reduced.
+
+However, it didn't solve the problem at the root.
+
+Luckily, we have the `srcset` attribute.
+
+At the end of the article, we will have a look at how we can use `srcset` in Astro.
+If you want to immediately implement it, you can skip to the end of the article. ADD LINK
+
+## What is srcset?
+The `srcset` attribute is an attribute that can be added to the `img` tag.
+It allows us to match specific image variants to specific widths of the viewport.
+The browser will then select the best image variant for the current viewport width.
+
+### A simple example of an image that spans the whole viewport
+
+```html
+<img 
+   alt="image alt text" 
+   src="knaap.jpg" 
+   srcset=" 
+      small.jpg 240w, 
+      medium.jpg 300w, 
+      large.jpg 720w
+   " 
+   sizes=" 
+      100vw 
+   "
+>
+```
+
+In the example, we have an image that spans the whole viewport.
+The `sizes` attribute tells the browser that the image will always span the whole viewport (`100vw` means 100% of the *v*iewport *w*idth).
+The `srcset` attribute tells the browser that there are three image variants available and that it can pick the best one based on the current viewport width.
+
+The browser will then select the best image variant for the current viewport width.
+
+As you might have guessed, this is already a huge improvement over serving the same image to every device.
+Unfortunately, it's not perfect yet.
+Not every image variant spans the whole viewport width.
+
+### A more complex example of an image that doesn't span the whole viewport
+
+```html
+<img 
+   alt="image alt text" 
+   src="knaap.jpg" 
+   srcset=" 
+      small.jpg 240w, 
+      medium.jpg 300w, 
+      large.jpg 720w
+   " 
+   sizes=" 
+      <!-- Tablet, 50% -->
+      (min-width: 600px) 50vw, 
+      <!-- Desktop, 25% -->
+      (min-width: 1200px) 25vw,
+      <!-- Phone, 100% -->
+      100vw
+   "
+```
+
+In this example, we have an image that doesn't span the whole viewport.
+On desktops, it spans 25% of the viewport width, on tablets 50%, and on phones, it does span 100% of the viewport.
+
+As you can see in the example, the `sizes` attribute is basically a list of [media queries](https://css-tricks.com/a-complete-guide-to-css-media-queries/).
+The value at the bottom of the list is the default value, which is used when none of the media queries match (in our example, <600px screens in width).
+
+### The pitfall of srcset & sizes
+The `srcset` and `sizes` attributes are a great way to improve image performance.
+However, it takes a ton of work to get it right.
+You have to manually create all the different image variants, and you have to manually create the `sizes` attribute.
+
+As developers, we want to make it as easy as possible.
+Luckily, modern web frameworks have a solution for this.
+
+## How to use srcset & sizes in Astro
+In Astro 3.3, a [new Image component was introduced](https://astro.build/blog/astro-330/).
+This component allows us to easily generate the `srcset` attribute on the fly and pair it with the `sizes` attribute.
+
+### Generating different image variants with the Image component
+Generating image variants is as easy as specifying the widths as an HTML attribute.
+The Image component will then generate the image variants for you.
+
+```html
+<Image src={myImage} widths={[240, 540, 720]} alt="A description of my image." />
+```
+
+This will generate a `srcset` attribute with three image variants: 240px, 540px, and 720px.
+
+If you want to read more about this technique, read the [amazing documentation](https://docs.astro.build/en/guides/images/#widths).
+
+Unfortunately, this doesn't solve the problem of the `sizes` attribute.
+Astro can't infer how much space the image will take up on the screen.
+
+There are some libraries that try to solve this problem, but they are not completely perfect.
+[Lazysizes](https://github.com/aFarkas/lazysizes) is a great example.
+It tries to solve the problem by extracting the display width of images on the client-side.
+However, this means that the right image variant can only be selected after the page has already loaded.
+This is okay for images that are below the fold, but it's not ideal for images that are above the fold.
+
+Therefore, I recommend manually specifying the `sizes` attribute.
+If you are on a strict time budget, a library like lazysizes is definitely a great option.
+
+### Generating images for different pixel ratios
+To make it even more complicated, devices have different pixel ratios.
+Most Apple devices have a pixel ratio of 2 (MacBook) or 3 (iPhones), which means that they have 2 or 3 pixels for every CSS pixel.
+This means that a 100px wide image will actually be 300px wide on an iPhone.
+For normal users, this is great, because it makes images look sharper.
+
+Unfortunately, this means that we have to generate even more image variants if we want to serve the best image to every device.
+Luckily, the Image component can also generate image variants for different pixel ratios.
+
+Our previous solution already solves the issue but requires us to manually specify the `sizes` attribute.
+There is another solution to only solve the pixel ratio issue that requires less work.
+
+If you don't care about serving different image variants to different devices (maybe your images are already tiny due to compression), you can use the densities attribute.
+
+```html
+<Image src={myImage} width={originalWidth} densities={[2, 3]} alt="A description of my image." />
+```
+
+You can read more about this technique in the [documentation](https://docs.astro.build/en/guides/images/#densities).
+
+## Conclusion
+Images are a huge part of the web and can be hard to get right.
+Fortunately, Astro 3.3 offers a toolbox of tools to make it easier to serve the right image to every device.
+
+I hope this article was helpful to you. Send me a message on [Twitter](https://twitter.com/pellevdknaap) if you want to have a chat about this topic!
