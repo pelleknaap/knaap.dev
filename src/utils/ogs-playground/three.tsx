@@ -28,11 +28,13 @@ const template = (
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </p>
 
-    {/*<img*/}
-    {/*  src={`${isDev ? "http://localhost:3000" : "https://knaap.dev"}/assets/mock-up-og.png`}*/}
-    {/*  height="630"*/}
-    {/*  alt="Redunant"*/}
-    {/*/>*/}
+    <img
+      src={`${
+        isDev ? "http://localhost:3000" : "https://knaap.dev"
+      }/assets/mock-up-og.png`}
+      height="630"
+      alt="Redunant"
+    />
   </div>
 );
 
