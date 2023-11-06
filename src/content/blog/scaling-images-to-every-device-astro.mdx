@@ -34,7 +34,7 @@ Luckily, we have the `srcset` attribute.
 At the end of the article, we will have a look at how we can use `srcset` in Astro.
 If you want to immediately implement it, you can skip to <a href="#how-to-use-srcset--sizes-in-astro">the end of the article</a>.
 
-## What is srcset?
+## How can we serve different images based on screen size?
 The `srcset` attribute is an attribute that can be added to the `img` tag.
 It allows us to match specific image variants to specific widths of the viewport.
 The browser will then select the best image variant for the current viewport width.
@@ -57,7 +57,7 @@ The browser will then select the best image variant for the current viewport wid
 ```
 
 In the example, we have an image that spans the whole viewport.
-The `sizes` attribute tells the browser that the image will always span the whole viewport (`100vw` means 100% of the *v*iewport *w*idth).
+The `sizes` attribute tells the browser that the image will always span the whole viewport (`100vw` means 100% of the **v**iewport **w**idth).
 The `srcset` attribute tells the browser that there are three image variants available and that it can pick the best one based on the current viewport width.
 
 The browser will then select the best image variant for the current viewport width.
@@ -122,12 +122,13 @@ Astro can't infer how much space the image will take up on the screen.
 
 There are some libraries that try to solve this problem, but they are not completely perfect.
 [Lazysizes](https://github.com/aFarkas/lazysizes) is a great example.
-It tries to solve the problem by extracting the display width of images on the client-side.
-However, this means that the right image variant can only be selected after the page has already loaded.
+It solves the problem by extracting the display width of images on the client-side.
+As you might have already guessed, this means that the right image variant can only be selected after the page has already loaded.
 This is okay for images that are below the fold, but it's not ideal for images that are above the fold.
+Waiting for the mark-up and css to render before loading the right image is suboptimal for performance.
 
 Therefore, I recommend manually specifying the `sizes` attribute.
-If you are on a strict time budget, a library like lazysizes is definitely a great option.
+Nevertheless, if you are on a strict time budget, a library like lazysizes is definitely a great alternative.
 
 ### Generating images for different pixel ratios
 To make it even more complicated, devices have different pixel ratios.
