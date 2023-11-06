@@ -96,13 +96,13 @@ The value at the bottom of the list is the default value, which is used when non
 ### The pitfall of srcset & sizes
 The `srcset` and `sizes` attributes are a great way to improve image performance.
 However, it takes a ton of work to get it right.
-You have to manually create all the different image variants, and you have to manually create the `sizes` attribute.
+You have to manually create all the different image variants, and you have to manually write the `sizes` attribute.
 
 As developers, we want to make it as easy as possible.
 Luckily, modern web frameworks have a solution for this.
 
 ## How to use srcset & sizes in Astro
-In Astro 3.3, a [new Image component was introduced](https://astro.build/blog/astro-330/).
+In Astro 3.3, a [new Image component](https://astro.build/blog/astro-330/) was introduced.
 This component allows us to easily generate the `srcset` attribute on the fly and pair it with the `sizes` attribute.
 
 ### Generating different image variants with the Image component
@@ -117,11 +117,12 @@ This will generate a `srcset` attribute with three image variants: 240px, 540px,
 
 If you want to read more about this technique, read the [amazing documentation](https://docs.astro.build/en/guides/images/#widths).
 
-Unfortunately, this doesn't solve the problem of the `sizes` attribute.
-Astro can't infer how much space the image will take up on the screen.
+#### Bypassing the sizes attribute
+Unfortunately, adding a few variants doesn't solve the problem of the `sizes` attribute.
+We would still have to manually specify the `sizes` attribute. Astro can't infer the client-side width of an image from the mark-up.
 
 There are some libraries that try to solve this problem, but they are not completely perfect.
-[Lazysizes](https://github.com/aFarkas/lazysizes) is a great example.
+[Lazysizes](https://github.com/aFarkas/lazysizes) is one of these libraries.
 It solves the problem by extracting the display width of images on the client-side.
 As you might have already guessed, this means that the right image variant can only be selected after the page has already loaded.
 This is okay for images that are below the fold, but it's not ideal for images that are above the fold.
