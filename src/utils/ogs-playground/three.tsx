@@ -27,7 +27,7 @@ const template = (
     </p>
 
     <img
-      src="http://localhost:3000/assets/mock-up-og.png"
+      src="https://knaap.dev/assets/mock-up-og.png"
       height="630"
       alt="Redunant"
     />
